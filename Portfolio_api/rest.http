@@ -11,7 +11,16 @@ Content-Type: application/json
 
 {
     "name": "Dinesh",
-    "Email": "Phy@gmail.com",
+    "email": "P@gmail.com",
+    "password": "123"
+}
+### Login User
+POST  http://localhost:8000/api/v1/users/login
+Content-Type: application/json
+
+{
+    
+    "email": "Ph@gmail.com",
     "password": "123"
 }
 

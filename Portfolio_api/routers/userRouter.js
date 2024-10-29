@@ -1,6 +1,6 @@
 import express from "express";
-import { insertUser } from "../models/user/UserModel.js";
-import { hashPassword } from "../utils/bcryptjs.js";
+import { getUserByEmail, insertUser } from "../models/user/UserModel.js";
+import { comparePassword, hashPassword } from "../utils/bcryptjs.js";
 const router = express.Router();
 
 // User signup
@@ -33,7 +33,39 @@ router.post("/", async (req, res, next) => {
   }
 });
 // User login
+router.post("/login", async (req, res, next) => {
+  try {
+    // 1. Recieve email and password
+    const { email, password } = req.body;
+    if (email && password) {
+      //2. Find the user by email
+      const user = await getUserByEmail(email);
+      if (user?._id) {
+        //3. Match the password
+        const isMatched = comparePassword(password, user.password);
+        if (isMatched) {
+          // The user actually authenticated
+          //4. JWT and store the jwt in db then return the user {} with jwt token
+          user.password = undefined;
 
+          res.json({
+            status: "success",
+            message: "LogedIn successfully",
+            user,
+          });
+          return;
+        }
+      }
+    }
+    res.status(401).json({
+      error: "Invalid email or password",
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: error.message,
+    });
+  }
+});
 // user profile
 
 export default router;

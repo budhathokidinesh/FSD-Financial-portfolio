@@ -11,7 +11,6 @@ const userSchema = mongoose.Schema(
       unique: true,
       index: 1,
       required: true,
-      trim: true,
     },
 
     password: {
@@ -23,4 +22,4 @@ const userSchema = mongoose.Schema(
     timestamps: true,
   }
 );
-export default mongoose.model("users", userSchema); // users
+export default mongoose.model("User", userSchema); // users

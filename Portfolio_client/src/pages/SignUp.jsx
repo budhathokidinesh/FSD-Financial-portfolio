@@ -9,10 +9,10 @@ const SignUp = () => {
     <Container className="p-5">
       <Row className="bg-dark p-5 rounded">
         <Col md={6}>
-          <FinancialTips />
+          <FinancialTips />{" "}
         </Col>
         <Col md={6}>
-          <SignUpForm />
+          <SignUpForm />{" "}
         </Col>
       </Row>
     </Container>

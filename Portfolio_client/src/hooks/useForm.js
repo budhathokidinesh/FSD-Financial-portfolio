@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const handleOnChange = (e, form, setForm) => {
+const handleOnChange = ({ e, form, setForm }) => {
   const { name, value } = e.target;
 
   setForm({

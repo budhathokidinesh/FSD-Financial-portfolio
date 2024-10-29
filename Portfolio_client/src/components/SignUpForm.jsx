@@ -6,8 +6,15 @@ import { CustomInput } from "./CustomInput";
 import { postNewUser } from "../helpers/axiosHelper";
 import useForm from "../hooks/useForm";
 
+const initialState = {
+  name: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
+
 export const SignUpForm = () => {
-  const { form, setForm, handleOnChange } = useForm({});
+  const { form, setForm, handleOnChange } = useForm(initialState);
   // const [form, setForm] = useState({});
   const fields = [
     {
@@ -16,6 +23,7 @@ export const SignUpForm = () => {
       required: true,
       type: "text",
       name: "name",
+      value: form.name,
     },
     {
       label: "Email",
@@ -23,6 +31,7 @@ export const SignUpForm = () => {
       required: true,
       type: "email",
       name: "email",
+      value: form.email,
     },
     {
       label: "Password",
@@ -30,6 +39,7 @@ export const SignUpForm = () => {
       required: true,
       type: "password",
       name: "password",
+      value: form.password,
     },
     {
       label: "Confirm Password",
@@ -37,6 +47,7 @@ export const SignUpForm = () => {
       required: true,
       type: "password",
       name: "confirmPassword",
+      value: form.confirmPassword,
     },
   ];
 
@@ -59,6 +70,7 @@ export const SignUpForm = () => {
     }
     const { status, message } = await postNewUser(rest);
     toast[status](message);
+    status === "success" && setForm(initialState);
   };
 
   return (
